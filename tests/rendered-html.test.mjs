@@ -33,5 +33,5 @@ test("keeps the homepage, SEO, and Netlify configuration aligned", async () => {
   assert.match(packageJson, /"build": "next build"/);
   assert.doesNotMatch(packageJson, /vinext|wrangler|drizzle/);
   assert.match(netlify, /command = "npm run build"/);
-  assert.match(netlify, /publish = "\.next"/);
+  assert.match(netlify, /publish = "out"/);
 });
