@@ -1,28 +1,26 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+test("keeps the homepage and Netlify deployment configuration aligned", async () => {
+  const [page, layout, styles, packageJson, netlify] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../netlify.toml", import.meta.url), "utf8"),
+  ]);
 
-  return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
-}
-
-test("server-renders the Kieran Wang homepage", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-  const html = await response.text();
-  assert.match(html, /<title>Kieran Wang/);
-  assert.match(html, /Personal index/);
-  assert.match(html, /developer and product builder/i);
-  assert.match(html, /Building, learning, and keeping things simple/);
-  assert.match(html, /https:\/\/github\.com\/kieranwv/);
-  assert.doesNotMatch(html, /Blue Hour|codex-preview|SkeletonPreview|Your site is taking shape/);
+  assert.match(page, /Personal index/);
+  assert.match(page, /developer and product builder/i);
+  assert.match(page, /Building, learning, and keeping things simple/);
+  assert.match(page, /https:\/\/github\.com\/kieranwv/);
+  assert.doesNotMatch(page, /Blue Hour|codex-preview|SkeletonPreview/);
+  assert.match(layout, /Kieran Wang — Personal Website/);
+  assert.match(layout, /https:\/\/kieran\.wang/);
+  assert.match(styles, /--canvas: #e8e8e3/);
+  assert.match(packageJson, /"build": "next build"/);
+  assert.doesNotMatch(packageJson, /vinext|wrangler|drizzle/);
+  assert.match(netlify, /command = "npm run build"/);
+  assert.match(netlify, /publish = "\.next"/);
 });

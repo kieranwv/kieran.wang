@@ -26,6 +26,8 @@ Open [http://localhost:3000](http://localhost:3000).
 - `app/page.tsx` — homepage content
 - `app/globals.css` — visual system and responsive styles
 - `app/layout.tsx` — metadata and social preview configuration
-- `public/og.png` — social sharing card
+- `public/og-v2.png` — social sharing card
+- `netlify.toml` — Netlify build and local development settings
 
-Built with Next-compatible React, vinext, and Cloudflare Workers.
+Built with Next.js and deployed on Netlify. Netlify applies its current OpenNext
+adapter automatically during deployment, so no adapter package is pinned here.
