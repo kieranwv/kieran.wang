@@ -6,17 +6,17 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kieran Wang — Developer, Product Builder & Photographer",
-  description: "Kieran Wang builds software and products, and photographs the blue hour.",
+  title: "Kieran Wang — Personal Website",
+  description: "Kieran Wang is a developer and product builder interested in software, product, and design.",
   metadataBase: new URL("https://kieran.wang"),
   openGraph: {
     title: "Kieran Wang",
-    description: "Developer, product builder, and photographer.",
+    description: "Developer and product builder. A small personal index on the web.",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/og.png", width: 1733, height: 907, alt: "Kieran Wang — Developer, product builder, and photographer." }],
+    images: [{ url: "/og-v2.png", width: 1733, height: 907, alt: "Kieran Wang — Personal website" }],
   },
-  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  twitter: { card: "summary_large_image", images: ["/og-v2.png"] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

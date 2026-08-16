@@ -20,10 +20,9 @@ test("server-renders the Kieran Wang homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Kieran Wang/);
-  assert.match(html, /I build things/);
-  assert.match(html, /I frame moments/);
-  assert.match(html, /Developer, product builder, and photographer/);
-  assert.match(html, /BUYE \/ BLUE HOUR/);
+  assert.match(html, /Personal index/);
+  assert.match(html, /developer and product builder/i);
+  assert.match(html, /Building, learning, and keeping things simple/);
   assert.match(html, /https:\/\/github\.com\/kieranwv/);
-  assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/);
+  assert.doesNotMatch(html, /Blue Hour|codex-preview|SkeletonPreview|Your site is taking shape/);
 });

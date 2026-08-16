@@ -1,8 +1,8 @@
 # kieran.wang
 
-The personal website of Kieran Wang — developer, product builder, and photographer.
+The personal website of Kieran Wang — developer and product builder.
 
-> 做软件和产品，也拍蓝调时刻。
+> 一个简洁的个人索引，记录软件、产品、设计与其他正在发生的事。
 
 ## Development
 
