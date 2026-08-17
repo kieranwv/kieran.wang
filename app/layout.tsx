@@ -4,9 +4,9 @@ import "./globals.css";
 
 const siteUrl = "https://kieran.wang";
 const siteName = "Kieran Wang";
-const title = "Kieran Wang — Personal Website";
+const title = "Kieran Wang — Developer & Product Designer";
 const description =
-  "Kieran Wang is a developer and product builder interested in software, product, and design. Kieran Wang 的个人网站。";
+  "Kieran Wang is a web and native app developer and product designer. The design is not just what it looks like and feels like. The design is how it works.";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -29,9 +29,8 @@ export const metadata: Metadata = {
     "kieranwv",
     "个人网站",
     "Developer",
-    "Product Builder",
     "Web Development",
-    "App Development",
+    "Native App Development",
     "Product Design",
   ],
   alternates: {
@@ -63,7 +62,7 @@ export const metadata: Metadata = {
         url: "/og-v2.png",
         width: 1733,
         height: 907,
-        alt: "Kieran Wang — Personal website",
+        alt: "Kieran Wang — Developer and Product Designer",
       },
     ],
   },
@@ -90,14 +89,15 @@ const jsonLd = {
     "@type": "Person",
     name: siteName,
     url: siteUrl,
-    sameAs: ["https://github.com/kieranwv"],
+    jobTitle: ["Web and Native App Developer", "Product Designer"],
+    sameAs: [
+      "https://github.com/kieranwv",
+      "https://juejin.cn/user/1141722285880972",
+    ],
     knowsAbout: [
       "Web Development",
-      "App Development",
-      "Python",
-      "Product Management",
+      "Native App Development",
       "Product Design",
-      "Photography",
     ],
   },
 };

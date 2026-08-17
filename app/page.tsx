@@ -1,4 +1,4 @@
-const areas = ["Web", "Apps", "Python", "Product", "Design"];
+const areas = ["Web Development", "Native Apps", "Product Design"];
 
 export default function Home() {
   return (
@@ -19,7 +19,6 @@ export default function Home() {
       <section className="hero page-width">
         <div className="hero-meta">
           <p>Personal index</p>
-          <p>Shanghai time / UTC+8</p>
         </div>
 
         <div className="hero-title">
@@ -28,16 +27,10 @@ export default function Home() {
         </div>
 
         <div className="hero-note">
-          <p>
-            A developer and product builder interested in software, useful products,
-            and thoughtful digital experiences.
-          </p>
-          <p className="cn">开发者与产品构建者，关注软件、产品和设计，也偶尔拍照。</p>
+          <p>Web and native app developer / Product Designer</p>
+          <p className="cn">Web 与原生应用开发者 / 产品设计师</p>
         </div>
 
-        <div className="coordinates" aria-hidden="true">
-          <span>31.2° N</span><span>121.5° E</span><span>2026</span>
-        </div>
       </section>
 
       <section className="profile page-width" id="profile">
@@ -45,16 +38,16 @@ export default function Home() {
           <span>01</span>
           <p>Profile</p>
         </div>
-        <div className="profile-copy">
-          <p>
-            I work across development, product, and design. I like making ideas clearer,
-            then turning them into things people can actually use.
-          </p>
-          <p className="muted">
-            This site is intentionally small for now. Projects, notes, and other work
-            will be added gradually.
-          </p>
-        </div>
+        <figure className="profile-copy">
+          <blockquote>
+            The design is not just what it looks like and feels like. The design is how
+            it works.
+          </blockquote>
+          <figcaption>
+            <span>Design principle</span>
+            My product design motto and the core idea behind how I make things.
+          </figcaption>
+        </figure>
       </section>
 
       <section className="index page-width" id="index">
@@ -78,25 +71,36 @@ export default function Home() {
           <article className="index-card now-card">
             <p className="card-label">Now</p>
             <div className="now-copy">
-              <p>Building, learning, and keeping things simple.</p>
+              <p>Designing and building for web and native platforms.</p>
               <span>Last updated / 2026.08</span>
             </div>
           </article>
 
           <article className="index-card link-card">
             <p className="card-label">Elsewhere</p>
-            <a href="https://github.com/kieranwv" target="_blank" rel="noreferrer">
-              <span>GitHub</span>
-              <small>@kieranwv</small>
-              <b aria-hidden="true">↗</b>
-            </a>
+            <div className="link-list">
+              <a href="https://github.com/kieranwv" target="_blank" rel="noreferrer">
+                <span>GitHub</span>
+                <small>@kieranwv</small>
+                <b aria-hidden="true">↗</b>
+              </a>
+              <a
+                href="https://juejin.cn/user/1141722285880972"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>掘金</span>
+                <small>个人主页</small>
+                <b aria-hidden="true">↗</b>
+              </a>
+            </div>
           </article>
         </div>
       </section>
 
       <footer className="page-width">
         <p>Kieran Wang © 2026</p>
-        <p>A small place on the web.</p>
+        <p>Developer / Product Designer</p>
         <a href="#top">Top ↑</a>
       </footer>
     </main>

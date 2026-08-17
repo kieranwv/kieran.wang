@@ -16,11 +16,13 @@ test("keeps the homepage, SEO, and Netlify configuration aligned", async () => {
   ]);
 
   assert.match(page, /Personal index/);
-  assert.match(page, /developer and product builder/i);
-  assert.match(page, /Building, learning, and keeping things simple/);
+  assert.match(page, /Web and native app developer \/ Product Designer/);
+  assert.match(page, /The design is not just what it looks like and feels like/);
+  assert.match(page, /Designing and building for web and native platforms/);
   assert.match(page, /https:\/\/github\.com\/kieranwv/);
+  assert.match(page, /https:\/\/juejin\.cn\/user\/1141722285880972/);
   assert.doesNotMatch(page, /Blue Hour|codex-preview|SkeletonPreview/);
-  assert.match(layout, /Kieran Wang — Personal Website/);
+  assert.match(layout, /Kieran Wang — Developer & Product Designer/);
   assert.match(layout, /https:\/\/kieran\.wang/);
   assert.match(layout, /application\/ld\+json/);
   assert.match(layout, /canonical/);
