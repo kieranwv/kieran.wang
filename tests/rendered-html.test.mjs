@@ -74,7 +74,7 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(packageJson, /"build:vinext": "vinext build"/);
   assert.match(packageJson, /"vinext": "1\.0\.0-beta\.9"/);
   assert.match(packageJson, /"@tailwindcss\/typography"/);
-  assert.match(netlify, /command = "npm run build"/);
+  assert.match(netlify, /command = "pnpm build"/);
   assert.match(netlify, /publish = "out"/);
   assert.match(license, /Attribution-NonCommercial-ShareAlike 4\.0 International/);
 });
