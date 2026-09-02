@@ -35,7 +35,8 @@ test("keeps the homepage, SEO, and Netlify configuration aligned", async () => {
   assert.match(robots, /sitemap\.xml/);
   assert.match(sitemap, /changeFrequency: "monthly"/);
   assert.match(packageJson, /"build": "next build"/);
-  assert.doesNotMatch(packageJson, /vinext|wrangler|drizzle/);
+  assert.match(packageJson, /"build:vinext": "vinext build"/);
+  assert.match(packageJson, /"vinext": "1\.0\.0-beta\.9"/);
   assert.match(netlify, /command = "npm run build"/);
   assert.match(netlify, /publish = "out"/);
 });
