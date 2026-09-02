@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/work", "/writing", "/photography"];
+  const pages = ["", "/projects", "/posts", "/photos"];
 
   return pages.map((path, index) => ({
     url: `https://kieran.wang${path}`,

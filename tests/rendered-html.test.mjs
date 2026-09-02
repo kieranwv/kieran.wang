@@ -3,13 +3,14 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("keeps the multi-page portfolio, SEO, and build configuration aligned", async () => {
-  const [page, header, footer, work, writing, photography, layout, styles, icon, manifest, robots, sitemap, packageJson, netlify, license] = await Promise.all([
+  const [page, header, footer, projects, posts, photos, comingSoon, layout, styles, icon, manifest, robots, sitemap, packageJson, netlify, license] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/site-header.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/site-footer.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/work/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/writing/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/photography/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/projects/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/photos/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/coming-soon.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/icon.svg", import.meta.url), "utf8"),
@@ -28,13 +29,15 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.doesNotMatch(page, /少一点，但要更好/);
   assert.doesNotMatch(page, /每一个看得见的决定/);
   assert.match(page, /home-flow/);
-  assert.match(page, /prose prose-stone prose-sm md:prose-base/);
+  assert.match(page, /prose prose-stone home-prose/);
   assert.match(page, /compact-rail/);
-  assert.match(page, /把产品判断、交互细节与工程实现放在同一条线上/);
-  assert.match(page, /理解问题、校准判断的过程/);
-  assert.match(page, /href="\/work"/);
-  assert.match(page, /href="\/writing"/);
-  assert.match(page, /href="\/photography"/);
+  assert.match(page, /Hey! I&apos;m Kieran Wang/);
+  assert.match(page, /native and web app developer/);
+  assert.match(page, /wide portraits/);
+  assert.doesNotMatch(page, /你好，我是 Kieran/);
+  assert.match(page, /href="\/projects"/);
+  assert.match(page, /href="\/posts"/);
+  assert.match(page, /href="\/photos"/);
   assert.doesNotMatch(page, /href="\/about"/);
   assert.doesNotMatch(page, /codex-preview|SkeletonPreview/);
   assert.match(header, /signature-mask/);
@@ -45,11 +48,16 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.equal((signaturePath.match(/M/g) ?? []).length, 1);
   assert.match(header, /aria-label="GitHub"/);
   assert.match(header, /aria-label="X"/);
+  assert.match(header, /aria-label="掘金"/);
+  assert.match(header, /\["projects", "\/projects"\].*\["posts", "\/posts"\].*\["photos", "\/photos"\]/s);
   assert.match(footer, /CC BY-NC-SA 4\.0/);
   assert.match(footer, /2021–PRESENT © Kieran Wang/);
-  assert.match(work, /Astro Theme Vitesse/);
-  assert.match(writing, /https:\/\/juejin\.cn\/user\/1141722285880972/);
-  assert.match(photography, /真实影像档案整理中/);
+  assert.match(projects, /ProjectsMark/);
+  assert.match(posts, /PostsMark/);
+  assert.match(photos, /PhotosMark/);
+  assert.match(comingSoon, /Coming soon/);
+  assert.match(comingSoon, /coming-soon/);
+  assert.doesNotMatch(photos, /photo-page/);
   assert.match(layout, /Kieran Wang — Design is how it works/);
   assert.match(layout, /https:\/\/kieran\.wang/);
   assert.match(layout, /application\/ld\+json/);
@@ -68,7 +76,7 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(manifest, /manifest\(\): MetadataRoute\.Manifest/);
   assert.match(robots, /sitemap\.xml/);
   assert.match(sitemap, /changeFrequency: "monthly"/);
-  assert.match(sitemap, /\/photography/);
+  assert.match(sitemap, /\/photos/);
   assert.doesNotMatch(sitemap, /\/about/);
   assert.match(packageJson, /"build": "next build"/);
   assert.match(packageJson, /"build:vinext": "vinext build"/);

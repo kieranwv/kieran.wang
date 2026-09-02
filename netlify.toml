@@ -8,3 +8,18 @@
 [dev]
   command = "pnpm dev"
   targetPort = 3000
+
+[[redirects]]
+  from = "/work"
+  to = "/projects"
+  status = 301
+
+[[redirects]]
+  from = "/writing"
+  to = "/posts"
+  status = 301
+
+[[redirects]]
+  from = "/photography"
+  to = "/photos"
+  status = 301

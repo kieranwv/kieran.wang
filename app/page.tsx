@@ -22,7 +22,7 @@ export default function Home() {
       <SiteHeader />
 
       <div className="home-flow">
-        <header className="home-statement slogan-column">
+        <header className="home-statement story-column">
           <h1>
             <span className="slogan-copy">
               <span className="slogan-line"><span className="slogan-quote slogan-quote-open" aria-hidden="true">“</span>The design is not just what it looks like and feels like.</span>
@@ -31,12 +31,12 @@ export default function Home() {
           </h1>
         </header>
 
-        <div className="prose prose-stone prose-sm md:prose-base home-prose story-column">
-          <p>你好，我是 Kieran，一名原生应用与 Web 前端开发者，也参与产品设计与管理。比起把这些看作彼此分开的身份，我更习惯从一个真实问题出发，把产品判断、交互细节与工程实现放在同一条线上。</p>
-          <p>我喜欢把模糊的想法做成真正可以使用的产品：先弄清需要解决什么，再决定什么值得被看见。这里收录了一些公开的 <Link href="/work">项目作品</Link>，也记录它们背后的选择与取舍。</p>
+        <div className="prose prose-stone home-prose story-column">
+          <p>Hey! I&apos;m Kieran Wang, a native and web app developer, and a product manager. I like starting from a real problem and keeping judgment, interaction, and implementation on the same line — so what ships is something people can actually use.</p>
+          <p>Turning a fuzzy idea into a working product is where my attention usually goes. I care about interfaces that feel quiet, tactile, and a little more human than they need to be — the kind of restraint you feel in iOS, or the unexpected warmth in a Smartisan detail. Some of the public work lives on the <Link href="/projects">projects</Link> page.</p>
         </div>
 
-        <div className="compact-rail project-rail" aria-label="项目作品，横向滚动">
+        <div className="compact-rail project-rail" aria-label="Projects, horizontal scroll">
           {projects.map((project) => (
             <a className={`project-tile ${project.tone}`} href={project.href} key={project.title} rel="noreferrer" target="_blank">
               <div className="project-tile-meta"><span>{project.index}</span><span>{project.meta}</span></div>
@@ -45,14 +45,14 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="prose prose-stone prose-sm md:prose-base home-prose follow-up-prose story-column">
-          <p>我会把工作中的思考写成 <Link href="/writing">文章</Link>，内容散落在不同平台，主题多与产品、设计和开发有关。它们不是教程目录，更像是我理解问题、校准判断的过程。</p>
-          <p>离开屏幕以后，我喜欢旅行和摄影，常拍广角人像、途中所见与蓝调时刻。我在意人物与环境之间的关系，也想保留光线经过时的现场感。照片整理在 <Link href="/photography">Photography</Link>。</p>
+        <div className="prose prose-stone home-prose follow-up-prose story-column">
+          <p>I write about product, design, and building. The notes are less of a tutorial catalog, more of a record of how I try to see a problem clearly. You can find them in <Link href="/posts">posts</Link>.</p>
+          <p>Outside of programming, I travel and take photographs — frames from the road, wide portraits, and the blue hour after sunset. I keep them on the <Link href="/photos">photos</Link> page.</p>
         </div>
 
-        <div className="compact-rail photography-rail" aria-label="摄影作品，横向滚动">
+        <div className="compact-rail photography-rail" aria-label="Photos, horizontal scroll">
           {photography.map((item) => (
-            <Link className={`photo-tile ${item.tone}`} href="/photography" key={item.title} aria-label={`${item.title}，${item.detail}`}>
+            <Link className={`photo-tile ${item.tone}`} href="/photos" key={item.title} aria-label={`${item.title}, ${item.detail}`}>
               <span aria-hidden="true" />
             </Link>
           ))}
