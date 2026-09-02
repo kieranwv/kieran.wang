@@ -1,15 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = "https://kieran.wang";
 const siteName = "Kieran Wang";
-const title = "Kieran Wang — Developer, Product Manager & Photographer";
+const title = "Kieran Wang — Design is how it works";
 const description =
-  "Kieran Wang is a native app and web frontend developer, product manager and photographer. Projects, writing, photography and personal notes.";
+  "Kieran Wang 的个人网站：原生应用与 Web 开发、产品实践、文章与摄影。少一点，但要更好。";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -106,8 +112,8 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="zh-CN">
+      <body className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
