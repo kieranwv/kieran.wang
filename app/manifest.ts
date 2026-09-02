@@ -4,14 +4,14 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Kieran Wang — Developer & Product Designer",
+    name: "Kieran Wang — Developer, Product Manager & Photographer",
     short_name: "Kieran Wang",
     description:
-      "Kieran Wang is a web and native app developer and product designer.",
+      "Projects, writing, photography and personal notes by Kieran Wang.",
     start_url: "/",
     display: "standalone",
-    background_color: "#e8e8e3",
-    theme_color: "#e8e8e3",
+    background_color: "#07101f",
+    theme_color: "#07101f",
     icons: [
       {
         src: "/icon.svg",

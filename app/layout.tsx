@@ -4,9 +4,9 @@ import "./globals.css";
 
 const siteUrl = "https://kieran.wang";
 const siteName = "Kieran Wang";
-const title = "Kieran Wang — Developer & Product Designer";
+const title = "Kieran Wang — Developer, Product Manager & Photographer";
 const description =
-  "Kieran Wang is a web and native app developer and product designer. The design is not just what it looks like and feels like. The design is how it works.";
+  "Kieran Wang is a native app and web frontend developer, product manager and photographer. Projects, writing, photography and personal notes.";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -31,7 +31,8 @@ export const metadata: Metadata = {
     "Developer",
     "Web Development",
     "Native App Development",
-    "Product Design",
+    "Product Management",
+    "Photography",
   ],
   alternates: {
     canonical: "/",
@@ -59,10 +60,10 @@ export const metadata: Metadata = {
     alternateLocale: ["zh_CN"],
     images: [
       {
-        url: "/og-v2.png",
+        url: "/og.png",
         width: 1733,
         height: 907,
-        alt: "Kieran Wang — Developer and Product Designer",
+        alt: "Kieran Wang — Developer, Product Manager and Photographer",
       },
     ],
   },
@@ -70,13 +71,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/og-v2.png"],
+    images: ["/og.png"],
   },
 };
 
 export const viewport: Viewport = {
-  colorScheme: "light",
-  themeColor: "#e8e8e3",
+  colorScheme: "light dark",
+  themeColor: "#07101f",
 };
 
 const jsonLd = {
@@ -89,7 +90,7 @@ const jsonLd = {
     "@type": "Person",
     name: siteName,
     url: siteUrl,
-    jobTitle: ["Web and Native App Developer", "Product Designer"],
+    jobTitle: ["Web and Native App Developer", "Product Manager", "Photographer"],
     sameAs: [
       "https://github.com/kieranwv",
       "https://juejin.cn/user/1141722285880972",
@@ -97,7 +98,8 @@ const jsonLd = {
     knowsAbout: [
       "Web Development",
       "Native App Development",
-      "Product Design",
+      "Product Management",
+      "Photography",
     ],
   },
 };

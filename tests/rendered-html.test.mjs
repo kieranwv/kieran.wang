@@ -15,20 +15,22 @@ test("keeps the homepage, SEO, and Netlify configuration aligned", async () => {
     readFile(new URL("../netlify.toml", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /Personal index/);
-  assert.match(page, /Web and native app developer \/ Product Designer/);
-  assert.match(page, /The design is not just what it looks like and feels like/);
-  assert.match(page, /Designing and building for web and native platforms/);
+  assert.match(page, /设计产品/);
+  assert.match(page, /Native App Developer/);
+  assert.match(page, /Product Manager/);
+  assert.match(page, /Photography/);
+  assert.match(page, /Antdv Pro/);
   assert.match(page, /https:\/\/github\.com\/kieranwv/);
   assert.match(page, /https:\/\/juejin\.cn\/user\/1141722285880972/);
-  assert.doesNotMatch(page, /Blue Hour|codex-preview|SkeletonPreview/);
-  assert.match(layout, /Kieran Wang — Developer & Product Designer/);
+  assert.doesNotMatch(page, /codex-preview|SkeletonPreview/);
+  assert.match(layout, /Kieran Wang — Developer, Product Manager & Photographer/);
   assert.match(layout, /https:\/\/kieran\.wang/);
   assert.match(layout, /application\/ld\+json/);
   assert.match(layout, /canonical/);
   assert.match(layout, /summary_large_image/);
-  assert.match(styles, /--canvas: #e8e8e3/);
-  assert.match(icon, /#e8e8e3/);
+  assert.match(styles, /--night: #07101f/);
+  assert.match(styles, /backdrop-filter: blur\(24px\)/);
+  assert.match(icon, /#07101f/);
   assert.match(manifest, /manifest\(\): MetadataRoute\.Manifest/);
   assert.match(robots, /sitemap\.xml/);
   assert.match(sitemap, /changeFrequency: "monthly"/);
