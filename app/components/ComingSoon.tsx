@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { SiteFooter } from "./site-footer";
-import { SiteHeader } from "./site-header";
+import { SiteFooter } from "./SiteFooter";
+import { SiteHeader } from "./SiteHeader";
 
 function Mark({ children }: { children: ReactNode }) {
   return (
@@ -34,6 +34,15 @@ export function PhotosMark() {
     <Mark>
       <path d="M8 7h1.85l1.15-1.6h2l1.15 1.6H16a2.1 2.1 0 0 1 2.1 2.1v7.3A2.1 2.1 0 0 1 16 18.5H8a2.1 2.1 0 0 1-2.1-2.1V9.1A2.1 2.1 0 0 1 8 7Z" />
       <circle cx="12" cy="13" r="2.55" />
+    </Mark>
+  );
+}
+
+export function TalksMark() {
+  return (
+    <Mark>
+      <rect x="6.4" y="4.4" width="11.2" height="8.6" rx="1.4" />
+      <path d="M9.4 16.6h5.2M12 13v3.6M8.2 19.6h7.6" />
     </Mark>
   );
 }

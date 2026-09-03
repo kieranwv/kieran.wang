@@ -1,15 +1,10 @@
 import Link from "next/link";
 import { FaJava } from "react-icons/fa6";
 import { SiBilibili, SiFigma, SiGithub, SiJuejin, SiPython, SiReact, SiTypescript, SiVuedotjs, SiX } from "react-icons/si";
-import { SiteFooter } from "./components/site-footer";
-import { SiteHeader } from "./components/site-header";
-
-const projects = [
-  { index: "01", title: "Antdv Pro", meta: "Product", href: "https://github.com/antdv-pro/antdv-pro", tone: "signal" },
-  { index: "02", title: "@kieranwv/utils", meta: "Tool", href: "https://github.com/kieranwv/utils", tone: "blue" },
-  { index: "03", title: "Astro Vitesse", meta: "Theme", href: "https://github.com/kieranwv/astro-theme-vitesse", tone: "graphite" },
-  { index: "04", title: "Starter Collective", meta: "Open source", href: "https://github.com/starter-collective", tone: "soft" },
-];
+import { SiteFooter } from "./components/SiteFooter";
+import { SiteHeader } from "./components/SiteHeader";
+import { getPhotos } from "../lib/photos";
+import { getAllProjects } from "../lib/projects";
 
 const photography = [
   { title: "On the road", detail: "旅途中", tone: "travel" },
@@ -34,6 +29,9 @@ function QuoteMark({ closing = false }: { closing?: boolean }) {
 }
 
 export default function Home() {
+  const projects = getAllProjects();
+  const photos = getPhotos().slice(0, 4);
+
   return (
     <main id="top">
       <SiteHeader />
@@ -54,9 +52,9 @@ export default function Home() {
         </div>
 
         <div className="compact-rail project-rail" aria-label="Projects, horizontal scroll">
-          {projects.map((project) => (
-            <a className={`project-tile ${project.tone}`} href={project.href} key={project.title} rel="noreferrer" target="_blank">
-              <div className="project-tile-meta"><span>{project.index}</span><span>{project.meta}</span></div>
+          {projects.map((project, index) => (
+            <a className={`project-tile ${project.tone ?? ""}`} href={project.href} key={project.slug} rel="noreferrer" target="_blank">
+              <div className="project-tile-meta"><span>{String(project.order ?? index + 1).padStart(2, "0")}</span><span>{project.meta}</span></div>
               <div className="project-tile-title"><span className="project-dot" aria-hidden="true" /><h2>{project.title}</h2><span aria-hidden="true">↗</span></div>
             </a>
           ))}
@@ -80,11 +78,18 @@ export default function Home() {
         </div>
 
         <div className="compact-rail photography-rail" aria-label="Photos, horizontal scroll">
-          {photography.map((item) => (
-            <Link className={`photo-tile ${item.tone}`} href="/photos" key={item.title} aria-label={`${item.title}, ${item.detail}`}>
-              <span aria-hidden="true" />
-            </Link>
-          ))}
+          {photos.length > 0
+            ? photos.map((photo) => (
+              <Link className="photo-tile" href="/photos" key={photo.slug} aria-label={photo.title}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={photo.src} alt="" />
+              </Link>
+            ))
+            : photography.map((item) => (
+              <Link className={`photo-tile ${item.tone}`} href="/photos" key={item.title} aria-label={`${item.title}, ${item.detail}`}>
+                <span aria-hidden="true" />
+              </Link>
+            ))}
         </div>
 
         <div className="prose prose-stone home-prose follow-up-prose story-column">

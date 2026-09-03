@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SiJuejin } from "react-icons/si";
 
-const navigation = [["Projects", "/projects"], ["Blog", "/posts"], ["Photos", "/photos"]] as const;
+const navigation = [["Projects", "/projects"], ["Blog", "/posts"], ["Talks", "/talks"], ["Photos", "/photos"], ["Use", "/use"]] as const;
 const signaturePath = "M8 36C13 27 18 12 22 4C21 14 18 28 15 37C23 26 33 14 43 7C36 17 27 25 18 29C27 28 34 33 41 36C46 38 50 31 53 24C51 30 52 34 56 34C61 34 64 27 67 25C62 24 59 28 60 31C61 35 67 35 72 31C76 28 77 24 80 24C77 29 77 34 81 34C85 34 87 26 92 25C96 24 98 28 95 31C92 35 88 34 89 30C90 26 95 25 99 28C102 31 102 34 106 34C110 34 112 27 115 24C113 29 113 34 117 34C121 34 124 25 129 25C133 25 134 29 132 32C131 35 136 35 141 31C145 28 150 27 154 29";
 
 export function SiteHeader() {

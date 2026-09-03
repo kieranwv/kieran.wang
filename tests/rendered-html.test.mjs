@@ -3,15 +3,24 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("keeps the multi-page portfolio, SEO, and build configuration aligned", async () => {
-  const [page, header, footer, projects, posts, photos, uses, comingSoon, layout, styles, icon, manifest, robots, sitemap, packageJson, netlify, license] = await Promise.all([
+  const [page, header, footer, projects, posts, postPage, postsLib, markdownLib, localPost, juejinPost, talks, photos, uses, usesContent, projectContent, comingSoon, entryList, layout, styles, icon, manifest, robots, sitemap, packageJson, netlify, license] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/components/site-header.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/components/site-footer.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteFooter.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/projects/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/posts.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/markdown.ts", import.meta.url), "utf8"),
+    readFile(new URL("../content/posts/notes-here.md", import.meta.url), "utf8"),
+    readFile(new URL("../content/posts/git-common-operations.md", import.meta.url), "utf8"),
+    readFile(new URL("../app/talks/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/photos/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/use/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/components/coming-soon.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../content/use.md", import.meta.url), "utf8"),
+    readFile(new URL("../content/projects/antdv-pro.md", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ComingSoon.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/EntryList.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/icon.svg", import.meta.url), "utf8"),
@@ -80,38 +89,80 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(header, /aria-label="X"/);
   assert.match(header, /aria-label="掘金"/);
   assert.match(header, /SiJuejin/);
-  assert.match(header, /\["Projects", "\/projects"\].*\["Blog", "\/posts"\].*\["Photos", "\/photos"\]/s);
+  assert.match(header, /\["Projects", "\/projects"\].*\["Blog", "\/posts"\].*\["Talks", "\/talks"\].*\["Photos", "\/photos"\].*\["Use", "\/use"\]/s);
   assert.match(footer, /CC BY-NC-SA 4\.0/);
-  assert.match(footer, /2021–PRESENT © Kieran Wang/);
-  assert.match(projects, /ProjectsMark/);
-  assert.match(posts, /getJuejinPosts/);
-  assert.match(posts, /juejin\.cn\/post/);
-  assert.match(posts, /className="text-link"[\s\S]*掘金/);
-  assert.match(posts, /post-list/);
+  assert.match(footer, /2023–PRESENT © Kieran Wang/);
+  assert.match(page, /getAllProjects/);
+  assert.match(page, /getPhotos/);
+  assert.match(projects, /getAllProjects/);
+  assert.match(projects, /isEmptyEntryList/);
+  assert.match(projects, /<h1 id="projects-title">Projects<\/h1>/);
+  assert.doesNotMatch(projects, /ComingSoon/);
+  assert.match(projectContent, /Antdv Pro/);
+  assert.match(projectContent, /antdv-pro\/antdv-pro/);
+  assert.match(talks, /getAllTalks/);
+  assert.match(talks, /isEmptyEntryList/);
+  assert.match(talks, /<h1 id="talks-title">Talks<\/h1>/);
+  assert.doesNotMatch(talks, /ComingSoon/);
+  assert.doesNotMatch(talks, /No talks yet/);
+  assert.match(comingSoon, /TalksMark/);
+  assert.match(posts, /getAllPosts/);
+  assert.match(posts, /groupPostsByYear/);
+  assert.match(entryList, /post-list/);
+  assert.match(entryList, /post-meta/);
+  assert.match(entryList, /post-tag/);
+  assert.match(entryList, /post-year/);
+  assert.match(entryList, /Nothing here yet\./);
+  assert.match(entryList, /isEmptyEntryList/);
+  assert.match(posts, /isEmptyEntryList/);
+  assert.match(posts, /isEmptyEntryList/);
   assert.match(posts, /<h1 id="posts-title">Blog<\/h1>/);
+  assert.match(posts, /className="posts-intro">\s*<h1 id="posts-title">Blog<\/h1>\s*<\/header>/);
+  assert.doesNotMatch(posts, /getJuejinPosts/);
+  assert.doesNotMatch(posts, /post-arrow/);
   assert.doesNotMatch(posts, /className="liquid-glass"/);
+  assert.match(postPage, /generateStaticParams/);
+  assert.match(postPage, /renderPost/);
+  assert.match(postPage, /MarkdownArticle/);
+  assert.match(postsLib, /readMarkdownCollection\("posts"\)/);
+  assert.match(markdownLib, /gray-matter/);
+  assert.match(markdownLib, /marked/);
+  assert.match(markdownLib, /redirect/);
+  assert.match(localPost, /title: Notes, here/);
+  assert.doesNotMatch(localPost, /redirect:/);
+  assert.match(juejinPost, /redirect: https:\/\/juejin\.cn\/post\/7529430220152406042/);
+  assert.match(juejinPost, /实用优先！六年前端开发常用的 Git 操作/);
   assert.match(styles, /\.liquid-glass/);
-  assert.match(photos, /PhotosMark/);
-  assert.match(uses, /<h1 id="uses-title">Uses<\/h1>/);
+  assert.match(styles, /\.post-year/);
+  assert.match(styles, /\.post-prose/);
+  assert.match(styles, /\.post-article/);
+  assert.match(styles, /\.photo-grid/);
+  assert.match(styles, /\.posts-content\.is-empty[\s\S]*place-content: center/);
+  assert.match(styles, /\.archive-empty/);
+  assert.match(photos, /getPhotos/);
+  assert.match(photos, /photo-grid/);
+  assert.match(photos, /photos-page/);
+  assert.doesNotMatch(photos, /ComingSoon/);
+  assert.match(uses, /getUses/);
   assert.match(uses, /uses-page/);
+  assert.match(uses, /uses-title/);
   assert.doesNotMatch(uses, /This list is kept/);
   assert.doesNotMatch(uses, /className="text-link"/);
-  assert.match(uses, /https:\/\/github\.com\/kieranwv\/use/);
-  assert.match(uses, /https:\/\/antfu\.me\/use/);
-  assert.match(uses, /MacBook Air M1 16GB/);
-  assert.match(uses, /NuPhy Node 75/);
-  assert.match(uses, /Nikon Z fc/);
-  assert.match(uses, /https:\/\/cursor\.com/);
-  assert.match(uses, /cursor-config\/settings\.json/);
-  assert.match(uses, /One Dark Pro/);
-  assert.match(uses, /Monaspace Argon/);
-  assert.match(uses, /scrcpy/);
+  assert.match(usesContent, /https:\/\/github\.com\/kieranwv\/use/);
+  assert.match(usesContent, /https:\/\/antfu\.me\/use/);
+  assert.match(usesContent, /MacBook Air M1 16GB/);
+  assert.match(usesContent, /NuPhy Node 75/);
+  assert.match(usesContent, /Nikon Z fc/);
+  assert.match(usesContent, /https:\/\/cursor\.com/);
+  assert.match(usesContent, /cursor-config\/settings\.json/);
+  assert.match(usesContent, /One Dark Pro/);
+  assert.match(usesContent, /Monaspace Argon/);
+  assert.match(usesContent, /scrcpy/);
   assert.doesNotMatch(uses, /ComingSoon/);
   assert.doesNotMatch(uses, /UsesMark/);
   assert.match(comingSoon, /Coming soon/);
   assert.match(comingSoon, /<h1>\{label\}<\/h1>/);
   assert.match(comingSoon, /coming-soon/);
-  assert.doesNotMatch(photos, /photo-page/);
   assert.match(layout, /Kieran Wang — Design is how it works/);
   assert.match(layout, /https:\/\/kieran\.wang/);
   assert.match(layout, /application\/ld\+json/);
@@ -132,6 +183,7 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(manifest, /manifest\(\): MetadataRoute\.Manifest/);
   assert.match(robots, /sitemap\.xml/);
   assert.match(sitemap, /changeFrequency: "monthly"/);
+  assert.match(sitemap, /\/talks/);
   assert.match(sitemap, /\/photos/);
   assert.match(sitemap, /\/use/);
   assert.doesNotMatch(sitemap, /\/about/);
@@ -139,6 +191,11 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(packageJson, /"build:vinext": "vinext build"/);
   assert.match(packageJson, /"vinext": "1\.0\.0-beta\.9"/);
   assert.match(packageJson, /"@tailwindcss\/typography"/);
+  assert.match(packageJson, /"gray-matter"/);
+  assert.match(packageJson, /"marked"/);
+  assert.match(sitemap, /getRenderablePosts/);
+  assert.match(sitemap, /getRenderableTalks/);
+  assert.match(sitemap, /\/posts\/\$\{post\.slug\}/);
   assert.match(netlify, /command = "pnpm build"/);
   assert.match(netlify, /publish = "out"/);
   assert.match(license, /Attribution-NonCommercial-ShareAlike 4\.0 International/);
