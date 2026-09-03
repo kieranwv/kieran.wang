@@ -94,6 +94,7 @@ const jsonLd = {
     sameAs: [
       "https://github.com/kieranwv",
       "https://juejin.cn/user/1141722285880972",
+      "https://space.bilibili.com/190014206",
     ],
     knowsAbout: [
       "Web Development",
@@ -106,7 +107,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" data-scroll-behavior="smooth">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <script
           type="application/ld+json"

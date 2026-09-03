@@ -44,6 +44,7 @@ export function ComingSoon({ label, icon }: { label: string; icon: ReactNode }) 
       <SiteHeader />
       <section className="coming-soon" aria-label={label}>
         {icon}
+        <h1>{label}</h1>
         <p>Coming soon</p>
       </section>
       <SiteFooter />
