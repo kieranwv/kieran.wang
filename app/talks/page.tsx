@@ -17,7 +17,8 @@ export default function TalksPage() {
       date: talk.date,
       href: talkHref(talk),
       external: isExternalEntry(talk),
-      tag: talk.source,
+      redirect: Boolean(talk.redirect),
+      tag: talk.tag,
       note: talk.place,
     })),
   }));

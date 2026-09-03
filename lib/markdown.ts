@@ -14,20 +14,12 @@ export type Entry = {
   duration?: string;
   place?: string;
   redirect?: string;
-  source?: string;
   href?: string;
-  meta?: string;
+  tag?: string;
   tone?: string;
   order?: number;
   draft: boolean;
   content: string;
-};
-
-const SOURCE_LABELS: Record<string, string> = {
-  "juejin.cn": "掘金",
-  "zhihu.com": "知乎",
-  "medium.com": "Medium",
-  "sspai.com": "少数派",
 };
 
 marked.use({
@@ -61,16 +53,6 @@ export function formatDate(value: unknown, slug: string, required = true) {
 
 export function formatPostDate(date: string) {
   return date.replaceAll("-", ".");
-}
-
-function sourceFromRedirect(redirect?: string) {
-  if (!redirect) return undefined;
-  try {
-    const host = new URL(redirect).hostname.replace(/^www\./, "");
-    return SOURCE_LABELS[host] ?? host;
-  } catch {
-    return "Link";
-  }
 }
 
 function optionalString(value: unknown) {
@@ -113,9 +95,8 @@ export function parseEntry(slug: string, raw: string, options: { dateRequired?: 
     duration: optionalString(data.duration),
     place: optionalString(data.place),
     redirect,
-    source: optionalString(data.source) ?? sourceFromRedirect(redirect),
     href,
-    meta: optionalString(data.meta),
+    tag: optionalString(data.tag),
     tone: optionalString(data.tone),
     order: optionalNumber(data.order),
     draft: data.draft === true,

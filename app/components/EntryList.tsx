@@ -7,9 +7,18 @@ export type EntryListItem = {
   date?: string;
   href: string;
   external?: boolean;
+  redirect?: boolean;
   tag?: string;
   note?: string;
 };
+
+function ExternalMark() {
+  return (
+    <svg className="post-external" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 5h10v10M19 5 5 19" />
+    </svg>
+  );
+}
 
 export function isEmptyEntryList(groups: { items: EntryListItem[] }[]) {
   return groups.every((group) => group.items.length === 0);
@@ -33,7 +42,10 @@ export function EntryList({
             {group.items.map((item) => {
               const body = (
                 <>
-                  <h3>{item.title}</h3>
+                  <h3>
+                    {item.title}
+                    {item.redirect ? <ExternalMark /> : null}
+                  </h3>
                   <div className="post-meta">
                     {item.date ? <time dateTime={item.date}>{formatPostDate(item.date)}</time> : null}
                     {item.note ? <span>{item.note}</span> : null}

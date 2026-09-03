@@ -17,7 +17,8 @@ export default function PostsPage() {
       date: post.date,
       href: postHref(post),
       external: isExternalEntry(post),
-      tag: post.source,
+      redirect: Boolean(post.redirect),
+      tag: post.tag,
     })),
   }));
 

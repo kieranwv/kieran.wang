@@ -3,8 +3,9 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("keeps the multi-page portfolio, SEO, and build configuration aligned", async () => {
-  const [page, header, footer, projects, posts, postPage, postsLib, markdownLib, localPost, juejinPost, talks, photos, uses, usesContent, projectContent, comingSoon, entryList, layout, styles, icon, manifest, robots, sitemap, packageJson, netlify, license] = await Promise.all([
+  const [page, slogan, header, footer, projects, posts, postPage, postsLib, markdownLib, juejinPost, talks, photos, gallery, uses, usesContent, comingSoon, projectCard, entryList, layout, styles, icon, manifest, robots, sitemap, packageJson, netlify, license] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SloganTypewriter.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteFooter.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/projects/page.tsx", import.meta.url), "utf8"),
@@ -12,14 +13,14 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/posts.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/markdown.ts", import.meta.url), "utf8"),
-    readFile(new URL("../content/posts/notes-here.md", import.meta.url), "utf8"),
     readFile(new URL("../content/posts/git-common-operations.md", import.meta.url), "utf8"),
     readFile(new URL("../app/talks/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/photos/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/PhotoGallery.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/use/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../content/use.md", import.meta.url), "utf8"),
-    readFile(new URL("../content/projects/antdv-pro.md", import.meta.url), "utf8"),
     readFile(new URL("../app/components/ComingSoon.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ProjectCard.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/EntryList.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
@@ -32,12 +33,16 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
     readFile(new URL("../LICENSE", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /The design is not just what it looks like and feels like.*The design is how it works/s);
-  assert.match(page, /function QuoteMark/);
-  assert.match(page, /<svg className=.*slogan-quote/);
-  assert.match(page, /slogan-copy/);
+  assert.match(page, /SloganTypewriter/);
+  assert.match(slogan, /The design is not just what it looks like and feels like.*The design is how it works/s);
+  assert.match(slogan, /function QuoteMark/);
+  assert.match(slogan, /<svg className=.*slogan-quote/);
+  assert.match(slogan, /slogan-copy/);
+  assert.match(slogan, /slogan-caret/);
+  assert.match(slogan, /<QuoteMark closing/);
   assert.match(styles, /\.slogan-copy::after[\s\S]*width: 2\.5rem[\s\S]*background: var\(--line\)/);
-  assert.match(page, /<QuoteMark closing/);
+  assert.match(styles, /blink-caret/);
+  assert.match(styles, /\.slogan-ch\.is-pending/);
   assert.doesNotMatch(page, /少一点，但要更好/);
   assert.doesNotMatch(page, /每一个看得见的决定/);
   assert.match(page, /home-flow/);
@@ -92,25 +97,37 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(header, /\["Projects", "\/projects"\].*\["Blog", "\/posts"\].*\["Talks", "\/talks"\].*\["Photos", "\/photos"\].*\["Use", "\/use"\]/s);
   assert.match(footer, /CC BY-NC-SA 4\.0/);
   assert.match(footer, /2023–PRESENT © Kieran Wang/);
+  assert.match(page, /project\.tag/);
+  assert.match(page, /variant="tile"/);
   assert.match(page, /getAllProjects/);
   assert.match(page, /getPhotos/);
   assert.match(projects, /getAllProjects/);
-  assert.match(projects, /isEmptyEntryList/);
+  assert.match(projects, /project-grid/);
+  assert.match(projects, /ProjectCard/);
   assert.match(projects, /<h1 id="projects-title">Projects<\/h1>/);
+  assert.match(projects, /is-empty/);
+  assert.match(projects, /Nothing here yet\./);
   assert.doesNotMatch(projects, /ComingSoon/);
-  assert.match(projectContent, /Antdv Pro/);
-  assert.match(projectContent, /antdv-pro\/antdv-pro/);
+  assert.doesNotMatch(projects, /EntryList/);
+  assert.doesNotMatch(projects, /isEmptyEntryList/);
+  assert.match(projectCard, /project-card/);
+  assert.match(projectCard, /project-card-canvas/);
+  assert.match(projectCard, /project-card-orb/);
   assert.match(talks, /getAllTalks/);
   assert.match(talks, /isEmptyEntryList/);
   assert.match(talks, /<h1 id="talks-title">Talks<\/h1>/);
   assert.doesNotMatch(talks, /ComingSoon/);
   assert.doesNotMatch(talks, /No talks yet/);
   assert.match(comingSoon, /TalksMark/);
+  assert.match(posts, /tag: post\.tag/);
+  assert.match(posts, /redirect: Boolean\(post\.redirect\)/);
   assert.match(posts, /getAllPosts/);
   assert.match(posts, /groupPostsByYear/);
   assert.match(entryList, /post-list/);
   assert.match(entryList, /post-meta/);
   assert.match(entryList, /post-tag/);
+  assert.match(entryList, /post-external/);
+  assert.match(entryList, /item.redirect/);
   assert.match(entryList, /post-year/);
   assert.match(entryList, /Nothing here yet\./);
   assert.match(entryList, /isEmptyEntryList/);
@@ -128,8 +145,10 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(markdownLib, /gray-matter/);
   assert.match(markdownLib, /marked/);
   assert.match(markdownLib, /redirect/);
-  assert.match(localPost, /title: Notes, here/);
-  assert.doesNotMatch(localPost, /redirect:/);
+  assert.match(markdownLib, /optionalString\(data\.tag\)/);
+  assert.doesNotMatch(markdownLib, /SOURCE_LABELS/);
+  assert.doesNotMatch(markdownLib, /sourceFromRedirect/);
+  assert.match(juejinPost, /tag: 掘金/);
   assert.match(juejinPost, /redirect: https:\/\/juejin\.cn\/post\/7529430220152406042/);
   assert.match(juejinPost, /实用优先！六年前端开发常用的 Git 操作/);
   assert.match(styles, /\.liquid-glass/);
@@ -137,12 +156,26 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(styles, /\.post-prose/);
   assert.match(styles, /\.post-article/);
   assert.match(styles, /\.photo-grid/);
+  assert.match(styles, /\.project-grid/);
+  assert.match(styles, /\.project-grid \{[\s\S]*grid-template-columns: 1fr/);
+  assert.match(styles, /@media \(min-width: 640px\)[\s\S]*\.project-grid \{ grid-template-columns: repeat\(2/);
+  assert.match(styles, /@media \(min-width: 980px\)[\s\S]*\.project-grid \{ grid-template-columns: repeat\(3/);
+  assert.match(styles, /\.project-card/);
   assert.match(styles, /\.posts-content\.is-empty[\s\S]*place-content: center/);
+  assert.match(styles, /\.photos-content\.is-empty[\s\S]*place-content: center/);
+  assert.match(styles, /\.projects-content\.is-empty[\s\S]*place-content: center/);
   assert.match(styles, /\.archive-empty/);
   assert.match(photos, /getPhotos/);
-  assert.match(photos, /photo-grid/);
+  assert.match(photos, /PhotoGallery/);
   assert.match(photos, /photos-page/);
+  assert.match(photos, /is-empty/);
+  assert.match(photos, /Nothing here yet\./);
+  assert.doesNotMatch(photos, /<h1/);
   assert.doesNotMatch(photos, /ComingSoon/);
+  assert.match(gallery, /photo-grid/);
+  assert.match(gallery, /photo-lightbox/);
+  assert.doesNotMatch(gallery, /target="_blank"/);
+  assert.match(styles, /\.photo-lightbox/);
   assert.match(uses, /getUses/);
   assert.match(uses, /uses-page/);
   assert.match(uses, /uses-title/);

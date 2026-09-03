@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PhotoGallery } from "../components/PhotoGallery";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
 import { getPhotos } from "../../lib/photos";
@@ -8,27 +9,16 @@ export const dynamic = "force-static";
 
 export default function PhotosPage() {
   const photos = getPhotos();
+  const empty = photos.length === 0;
 
   return (
     <main id="top" className="photos-page">
       <SiteHeader />
-      <section className="photos-content" aria-labelledby="photos-title">
-        <header className="posts-intro">
-          <h1 id="photos-title">Photos</h1>
-        </header>
-        {photos.length > 0 ? (
-          <ul className="photo-grid">
-            {photos.map((photo) => (
-              <li key={photo.slug}>
-                <a className="photo-frame" href={photo.src} rel="noreferrer" target="_blank">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={photo.src} alt={photo.title} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
+      <section className={`photos-content${empty ? " is-empty" : ""}`} aria-label="Photos">
+        {empty ? (
           <p className="archive-empty">Nothing here yet.</p>
+        ) : (
+          <PhotoGallery photos={photos} />
         )}
       </section>
       <SiteFooter />
