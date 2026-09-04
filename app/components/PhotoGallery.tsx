@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Photo } from "../../lib/photos";
 
 export function PhotoGallery({ photos }: { photos: Photo[] }) {
   const [index, setIndex] = useState<number | null>(null);
+  const dismissRef = useRef<HTMLButtonElement>(null);
   const current = index === null ? null : photos[index];
 
   useEffect(() => {
@@ -26,10 +27,13 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
     };
 
     const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     document.body.style.overflow = "hidden";
+    dismissRef.current?.focus();
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
       window.removeEventListener("keydown", onKey);
     };
   }, [index, photos.length]);
@@ -47,7 +51,14 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
         ))}
       </ul>
       {current ? (
-        <div className="photo-lightbox" role="dialog" aria-modal="true" aria-label="Photo" onClick={() => setIndex(null)}>
+        <div className="photo-lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+          <button
+            type="button"
+            className="photo-lightbox-dismiss"
+            aria-label="Close photo"
+            onClick={() => setIndex(null)}
+            ref={dismissRef}
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={current.src} alt="" />
         </div>

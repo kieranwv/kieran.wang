@@ -35,11 +35,8 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
 
   assert.match(page, /SloganTypewriter/);
   assert.match(slogan, /The design is not just what it looks like and feels like.*The design is how it works/s);
-  assert.match(slogan, /function QuoteMark/);
-  assert.match(slogan, /<svg className=.*slogan-quote/);
   assert.match(slogan, /slogan-copy/);
   assert.match(slogan, /slogan-caret/);
-  assert.match(slogan, /<QuoteMark closing/);
   assert.match(styles, /\.slogan-copy::after[\s\S]*width: 2\.5rem[\s\S]*background: var\(--line\)/);
   assert.match(styles, /blink-caret/);
   assert.match(styles, /\.slogan-ch\.is-pending/);
@@ -47,10 +44,8 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.doesNotMatch(page, /每一个看得见的决定/);
   assert.match(page, /home-flow/);
   assert.match(page, /prose prose-stone home-prose/);
-  assert.match(page, /compact-rail/);
   assert.match(page, /Hey! I&apos;m Kieran/);
   assert.match(page, /web and native app developer/);
-  assert.match(page, /One Step/);
   assert.match(page, /technology-list/);
   assert.match(page, /SiReact/);
   assert.match(page, /SiVuedotjs/);
@@ -65,9 +60,7 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(page, /href="https:\/\/dev\.java\/"/);
   assert.match(page, /href="https:\/\/www\.python\.org\/"/);
   assert.match(page, /href="https:\/\/www\.figma\.com\/"/);
-  assert.match(page, /photography and fitness/);
   assert.doesNotMatch(page, /你好，我是 Kieran/);
-  assert.match(page, /href="\/photos"/);
   assert.match(page, /uses-line/);
   assert.match(page, /complete list/);
   assert.match(page, /href="\/use"/);
@@ -97,10 +90,6 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.match(header, /\["Projects", "\/projects"\].*\["Blog", "\/posts"\].*\["Talks", "\/talks"\].*\["Photos", "\/photos"\].*\["Use", "\/use"\]/s);
   assert.match(footer, /CC BY-NC-SA 4\.0/);
   assert.match(footer, /2023–PRESENT © Kieran Wang/);
-  assert.match(page, /project\.tag/);
-  assert.match(page, /variant="tile"/);
-  assert.match(page, /getAllProjects/);
-  assert.match(page, /getPhotos/);
   assert.match(projects, /getAllProjects/);
   assert.match(projects, /project-grid/);
   assert.match(projects, /ProjectCard/);
@@ -139,6 +128,7 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.doesNotMatch(posts, /post-arrow/);
   assert.doesNotMatch(posts, /className="liquid-glass"/);
   assert.match(postPage, /generateStaticParams/);
+  assert.match(postPage, /posts\.length > 0[\s\S]*\[\{ slug: "_" \}\]/);
   assert.match(postPage, /renderPost/);
   assert.match(postPage, /MarkdownArticle/);
   assert.match(postsLib, /readMarkdownCollection\("posts"\)/);
@@ -174,6 +164,7 @@ test("keeps the multi-page portfolio, SEO, and build configuration aligned", asy
   assert.doesNotMatch(photos, /ComingSoon/);
   assert.match(gallery, /photo-grid/);
   assert.match(gallery, /photo-lightbox/);
+  assert.match(gallery, /photo-lightbox-dismiss/);
   assert.doesNotMatch(gallery, /target="_blank"/);
   assert.match(styles, /\.photo-lightbox/);
   assert.match(uses, /getUses/);

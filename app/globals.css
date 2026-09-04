@@ -366,7 +366,9 @@ a:focus-visible,
   backdrop-filter: blur(12px);
   animation: photo-lightbox-in 180ms var(--ease-out);
 }
-.photo-lightbox img { width: calc(100vw - 4rem); height: calc(100dvh - 4rem); display: block; object-fit: contain; }
+.photo-lightbox-dismiss { position: absolute; inset: 0; padding: 0; border: 0; background: transparent; cursor: zoom-out; }
+.photo-lightbox-dismiss:focus-visible { outline: 2px solid white; outline-offset: -6px; }
+.photo-lightbox img { position: relative; width: calc(100vw - 4rem); height: calc(100dvh - 4rem); display: block; object-fit: contain; pointer-events: none; }
 @keyframes photo-lightbox-in {
   from { opacity: 0; }
   to { opacity: 1; }

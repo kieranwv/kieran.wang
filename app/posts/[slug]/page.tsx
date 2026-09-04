@@ -11,7 +11,8 @@ type PostPageProps = {
 };
 
 export function generateStaticParams() {
-  return getRenderablePosts().map((post) => ({ slug: post.slug }));
+  const posts = getRenderablePosts().map((post) => ({ slug: post.slug }));
+  return posts.length > 0 ? posts : [{ slug: "_" }];
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
